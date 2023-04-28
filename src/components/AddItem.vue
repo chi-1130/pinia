@@ -18,11 +18,27 @@
 import { defineComponent, reactive } from 'vue'
 import { useCartStore } from '@/store/cart'
 
+// export default defineComponent({
+//   setup() {
+//     const cart = useCartStore()
+//     const inputs = reactive({ name: '', url: '' })
+//     const submit = () => {
+//       cart.addItem({ ...inputs })
+//       inputs.name = ''
+//       inputs.url = ''
+//     }
+//     return { inputs, submit }
+//   }
+// })
+
 export default defineComponent({
   setup() {
     const cart = useCartStore()
     const inputs = reactive({ name: '', url: '' })
     const submit = () => {
+      if (!inputs.url.startsWith('http://')) {
+        inputs.url = `http://${inputs.url}`
+      }
       cart.addItem({ ...inputs })
       inputs.name = ''
       inputs.url = ''
